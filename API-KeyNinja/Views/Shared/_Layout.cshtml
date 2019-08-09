@@ -1,41 +1,159 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <title></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <script src="Scripts/jquery-3.4.1.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var ulrider = $('#ulriders');
+            var test = $('#test');
+
+            var post = $('#btnPost');
+
+            $('#btnGet').click(function () {
+                test.empty();
+
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/riders',
+                    dataType: 'json'
+                })
+                    .done(function () {
+                        test.append("success");
+                    })
+                    .fail(function () {
+                        test.append("failed");
+                    })
+                    .always(function (data) {
+                        ulrider.empty();
+
+                        $.each(data, function (index, val) {
+                            var fullname = val.FirstName + ' ' + val.LastName;
+                            ulrider.append('<li> id: ' + val.Id + ' - ' + fullname + ' - ' + val.Start_Date + '</li>');
+                        });
+                    });
+            });
+
+            $('#btnShow').click(function () {
+                test.empty();
+
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/jobs?type=average',
+                    dataType: 'json'
+                })
+                    .done(function () {
+                        test.append("success");
+                    })
+                    .fail(function () {
+                        test.append("failed");
+                    })
+                    .always(function (data) {
+                        ulrider.empty();
+                        $.each(data, function (index, val) {
+                            var fullname = val.Riders.FirstName + ' ' + val.Riders.LastName;
+                            ulrider.append('<li> id: ' + val.Jobs.ID + ' , Fullname : ' + fullname + ' , Average : ' + val.Jobs.Average + ' , Highest Rating : ' + val.Jobs.Max + ' , Best Comment : ' + val.Jobs.BestComment + '</li>');
+                        });
+
+                    });
+            });
+            $('#btnPost').click(function () {
+                test.empty();
+                var first = $("#firstname").val();
+                var last = $("#lastname").val();
+                var email = $("#email").val();
+                var phone = $("#phone").val();
+
+                if (first != "" && last != "" && email != "" && phone != "") {
+                    test.append(first);
+                    test.append('')
+                    $.ajax({
+                        type: 'POST',
+                        url: 'api/riders',
+                        data: { 'firstname': first, 'lastname': last, 'email': email, 'phone_number': phone },
+                        success: function () {
+                            alert('success');
+                        },
+                        dataType: 'json'
+                    });
+                }
+                else {
+                    alert('please input the text');
+                }
+            });
+
+            $('#btnDelete').click(function () {
+                var id = $("#delete").val();
+                $.ajax({
+                    type: 'DELETE',
+                    url: 'api/riders/' + id,
+                    data: { 'firstname': first, 'lastname': last, 'email': email, 'phone_number': phone },
+                    success: function () {
+                        alert('success');
+                    },
+                    dataType: 'json'
+                })
+                    .always(function () {
+                        test.append("success");
+                    })
+            });
+            $('#btnUpdate').click(function () {
+                var id = $("#update").val();
+                var first = $("#firstname").val();
+                var last = $("#lastname").val();
+                var email = $("#email").val();
+                var phone = $("#phone").val();
+                if (first != "" && last != "" && email != "" && phone != "") {
+                    $.ajax({
+                        type: 'PUT',
+                        url: 'api/riders/' + id,
+                        data: { 'firstname': first, 'lastname': last, 'email': email, 'phone_number': phone },
+                        success: function () {
+                            alert('success');
+                        },
+                        dataType: 'json'
+                    })
+                }
+                else {
+                    alert("details must be filled");
+                }
+            });
+
+
+            $('#btnUpdate').click(function () {
+                var id = $("#update").val();
+                var first = $("#firstname").val();
+                var last = $("#lastname").val();
+                var email = $("#email").val();
+                var phone = $("#phone").val();
+                if (first != "" && last != "" && email != "" && phone != "") {
+                    $.ajax({
+                        type: 'PUT',
+                        url: 'api/riders/' + id,
+                        data: { 'firstname': first, 'lastname': last, 'email': email, 'phone_number': phone },
+                        success: function () {
+                            alert('success');
+                        },
+                        dataType: 'json'
+                    })
+                }
+                else {
+                    alert("details must be filled");
+                }
+            });
+
+
+            $('#btnClear').click(function () {
+                test.empty();
+                ulrider.empty();
+            })
+        });
+    </script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @RenderBody()
 </body>
 </html>

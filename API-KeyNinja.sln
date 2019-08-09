@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API-KeyNinja", "API-KeyNinja\API-KeyNinja.csproj", "{A521B234-7756-4D7B-A262-89CF7DB1F2FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiderDataAccess", "RiderDataAccess\RiderDataAccess.csproj", "{2AC2440D-2810-4ED8-8D1C-75B4280A8715}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A521B234-7756-4D7B-A262-89CF7DB1F2FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A521B234-7756-4D7B-A262-89CF7DB1F2FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A521B234-7756-4D7B-A262-89CF7DB1F2FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AC2440D-2810-4ED8-8D1C-75B4280A8715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AC2440D-2810-4ED8-8D1C-75B4280A8715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AC2440D-2810-4ED8-8D1C-75B4280A8715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AC2440D-2810-4ED8-8D1C-75B4280A8715}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

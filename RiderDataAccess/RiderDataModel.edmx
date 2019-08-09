@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RiderDetailsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="jobs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date_Time" Type="datetime" />
+          <Property Name="Rider_Id" Type="int" />
+          <Property Name="Review_Score" Type="numeric" Precision="18" Scale="1" />
+          <Property Name="Review_Comment" Type="nvarchar(max)" />
+          <Property Name="Completed_At" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="Rider">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="55" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="55" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Start_Date" Type="date" />
+          <Property Name="Phone_Number" Type="int" />
+        </EntityType>
+        <EntityContainer Name="RiderDetailsModelStoreContainer">
+          <EntitySet Name="jobs" EntityType="Self.jobs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rider" EntityType="Self.Rider" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RiderDetailsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="jobs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date_Time" Type="DateTime" Precision="3" />
+          <Property Name="Rider_Id" Type="Int32" />
+          <Property Name="Review_Score" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="Review_Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Completed_At" Type="Time" Precision="7" />
+        </EntityType>
+        <EntityType Name="Rider">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="55" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="55" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Start_Date" Type="DateTime" Precision="0" />
+          <Property Name="Phone_Number" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="RidersDetailsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="jobs" EntityType="Self.jobs" />
+          <EntitySet Name="Rider" EntityType="Self.Rider" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RiderDetailsModelStoreContainer" CdmEntityContainer="RidersDetailsEntities">
+          <EntitySetMapping Name="jobs">
+            <EntityTypeMapping TypeName="RiderDetailsModel.jobs">
+              <MappingFragment StoreEntitySet="jobs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date_Time" ColumnName="Date_Time" />
+                <ScalarProperty Name="Rider_Id" ColumnName="Rider_Id" />
+                <ScalarProperty Name="Review_Score" ColumnName="Review_Score" />
+                <ScalarProperty Name="Review_Comment" ColumnName="Review_Comment" />
+                <ScalarProperty Name="Completed_At" ColumnName="Completed_At" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rider">
+            <EntityTypeMapping TypeName="RiderDetailsModel.Rider">
+              <MappingFragment StoreEntitySet="Rider">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

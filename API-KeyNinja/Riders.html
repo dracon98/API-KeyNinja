@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="Scripts/jquery-3.4.1.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var ulrider = $('#ulriders');
+            var test = $('#test');
+
+            var post = $('#btnPost');
+
+            $('#btnGet').click(function () {
+                test.empty();
+               
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/riders',
+                    dataType: 'json'
+                })
+                    .done(function () {
+                        test.append("success");
+                    })
+                    .fail(function () {
+                        test.append("failed");
+                    })
+                    .always(function (data) {
+                        ulrider.empty();
+
+                        $.each(data, function (index, val) {
+                            var fullname = val.FirstName + ' ' + val.LastName;
+                            ulrider.append('<li> id: ' + val.Id + ' - ' + fullname + ' - ' + val.Start_Date + '</li>');
+                        });
+                    });
+            });
+
+            $('#btnShow').click(function () {
+                test.empty();
+
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/jobs?type=average',
+                    dataType: 'json'
+                })
+                    .done(function () {
+                        test.append("success");
+                    })
+                    .fail(function () {
+                        test.append("failed");
+                    })
+                    .always(function (data) {
+                        ulrider.empty();
+                        $.each(data, function (index, val) {
+                            var fullname = val.Riders.FirstName + ' ' + val.Riders.LastName;
+                            ulrider.append('<li> id: ' + val.Jobs.ID + ' , Fullname : ' + fullname + ' , Average : ' + val.Jobs.Average + ' , Highest Rating : ' + val.Jobs.Max + ' , Best Comment : ' + val.Jobs.BestComment +'</li>');
+                        });
+
+                    });
+            });
+            $('#btnPost').click(function () {
+                test.empty();
+                var first = $("#firstname").val();
+                var last = $("#lastname").val();
+                var email = $("#email").val();
+                var phone = $("#phone").val();
+
+                if (first != "" && last != "" && email != "" && phone != "") {
+                    test.append(first);
+                    test.append('')
+                    $.ajax({
+                        type: 'POST',
+                        url: 'api/riders',
+                        data: { 'firstname': first, 'lastname': last, 'email': email, 'phone_number': phone },
+                        success: function () {
+                            alert('success');
+                        },
+                        dataType: 'json'
+                    });
+                }
+                else {
+                    alert('please input the text');
+                }
+            });
+
+            $('#btnDelete').click(function () {
+                var id = $("#delete").val();
+                $.ajax({
+                    type: 'DELETE',
+                    url: 'api/riders/' + id,
+                    data: { 'firstname': first, 'lastname': last, 'email': email, 'phone_number': phone },
+                    success: function () {
+                            alert('success');
+                        },
+                    dataType: 'json'
+                })
+                    .always(function () {
+                        test.append("success");
+                    })
+            });
+            $('#btnUpdate').click(function () {
+                var id = $("#update").val();
+                var first = $("#firstname").val();
+                var last = $("#lastname").val();
+                var email = $("#email").val();
+                var phone = $("#phone").val();
+                if (first != "" && last != "" && email != "" && phone != "") {
+                    $.ajax({
+                        type: 'PUT',
+                        url: 'api/riders/' + id,
+                        data: { 'firstname': first, 'lastname': last, 'email': email, 'phone_number': phone },
+                        success: function () {
+                            alert('success');
+                        },
+                        dataType: 'json'
+                    })
+                }
+                else {
+                    alert("details must be filled");
+                }
+            });
+
+
+            $('#btnUpdate').click(function () {
+                var id = $("#update").val();
+                var first = $("#firstname").val();
+                var last = $("#lastname").val();
+                var email = $("#email").val();
+                var phone = $("#phone").val();
+                if (first != "" && last != "" && email != "" && phone != "") {
+                    $.ajax({
+                        type: 'PUT',
+                        url: 'api/riders/' + id,
+                        data: { 'firstname': first, 'lastname': last, 'email': email, 'phone_number': phone },
+                        success: function () {
+                            alert('success');
+                        },
+                        dataType: 'json'
+                    })
+                }
+                else {
+                    alert("details must be filled");
+                }
+            });
+           
+
+            $('#btnClear').click(function () {
+                test.empty();
+                ulrider.empty();
+            })
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row my-5">
+            <div class="my-2">
+                <input id="firstname" type="text" placeholder="first name" />
+                <input id="lastname" type="text" placeholder="last name" />
+                <input id="email" type="text" placeholder="email" />
+                <input id="phone" type="text" placeholder="phone number" />
+                <input id="btnPost" type="button" value="POST" />
+                <input id="btnGet" type="button" value="GET ALL" />
+                <input id="btnShow" type="button" value="GET ALL PERFORMANCE" />
+                <input id="btnClear" type="button" value="CLEAR" />
+            </div>
+        </div>
+        <br />
+        <div class="row my-5">
+            <div class="col-12 mx-auto my-2">
+                <input id="delete" type="text" placeholder="id:delete" />
+                <input id="btnDelete" type="button" value="DELETE" />
+            </div>
+        </div>
+        <br />
+        <div class="row my-5">
+            <div class="col-12 mx-auto my-2">
+                <input id="update" type="text" placeholder="id:update" />
+                <input id="btnUpdate" type="button" value="UPDATE" />
+            </div>
+        </div>
+        <div class="row my-5">
+            <ul id="ulriders"></ul>
+            <p id="test"></p>
+        </div>
+    </div>
+   
+    
+    
+</body>
+</html>
